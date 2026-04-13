@@ -191,7 +191,7 @@ def load_data():
     # Example URL: https://drive.google.com/file/d/FILE_ID_HERE/view?usp=sharing
     
     # Option 1: Load from Google Drive (recommended for large files)
-    file_id = 'YOUR_GOOGLE_DRIVE_FILE_ID'  # Replace with your file ID
+    file_id = '1iBFdhJAhuIQjNdVhiHZd1RCXI4L7TM44'  # Replace with your file ID
     url = f'https://drive.google.com/uc?id={file_id}'
     
     # Option 2: Load from local file (for development/testing)
