@@ -186,7 +186,19 @@ st.markdown("---")
 # Load data with caching
 @st.cache_data
 def load_data():
-    df = pd.read_csv('Cyclist-data.csv')
+    # Load from Google Drive (replace with your file ID)
+    # To get file ID: Share your file on Google Drive → Copy link → Extract ID from URL
+    # Example URL: https://drive.google.com/file/d/FILE_ID_HERE/view?usp=sharing
+    
+    # Option 1: Load from Google Drive (recommended for large files)
+    file_id = 'YOUR_GOOGLE_DRIVE_FILE_ID'  # Replace with your file ID
+    url = f'https://drive.google.com/uc?id={file_id}'
+    
+    # Option 2: Load from local file (for development/testing)
+    # Uncomment the line below and comment out the Google Drive lines above
+    # url = 'Cyclist-data.csv'
+    
+    df = pd.read_csv(url)
     
     # Parse datetime columns
     df['started_at'] = pd.to_datetime(df['started_at'])
