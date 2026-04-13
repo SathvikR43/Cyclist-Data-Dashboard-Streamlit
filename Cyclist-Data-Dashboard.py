@@ -186,19 +186,29 @@ st.markdown("---")
 # Load data with caching
 @st.cache_data
 def load_data():
-    # Load from Google Drive (replace with your file ID)
-    # To get file ID: Share your file on Google Drive → Copy link → Extract ID from URL
-    # Example URL: https://drive.google.com/file/d/FILE_ID_HERE/view?usp=sharing
+    # Load compressed CSV from Google Drive (24.6 MB instead of 131 MB)
+    # Upload Cyclist-data.csv.gz to Google Drive, share it publicly, and paste the File ID below
     
-    # Option 1: Load from Google Drive (recommended for large files)
-    file_id = '1iBFdhJAhuIQjNdVhiHZd1RCXI4L7TM44'  # Replace with your file ID
+    # REPLACE THIS with your File ID after uploading Cyclist-data.csv.gz to Google Drive
+    file_id = 'YOUR_COMPRESSED_FILE_ID_HERE'
     url = f'https://drive.google.com/uc?id={file_id}'
     
-    # Option 2: Load from local file (for development/testing)
-    # Uncomment the line below and comment out the Google Drive lines above
-    # url = 'Cyclist-data.csv'
+    # For local testing, uncomment this:
+    # url = 'Cyclist-data.csv.gz'
     
-    df = pd.read_csv(url)
+    try:
+        st.info("📥 Loading compressed data from Google Drive... (24.6 MB)")
+        # pandas can read .csv.gz files directly with compression='gzip'
+        df = pd.read_csv(url, compression='gzip')
+        st.success(f"✅ Successfully loaded {len(df):,} rows of data!")
+    except Exception as e:
+        st.error(f"❌ Error loading data: {str(e)}")
+        st.error("Make sure Cyclist-data.csv.gz is uploaded to Google Drive and shared publicly")
+        st.stop()
+    
+    if df.empty:
+        st.error("Data file is empty!")
+        st.stop()
     
     # Parse datetime columns
     df['started_at'] = pd.to_datetime(df['started_at'])
@@ -231,7 +241,7 @@ def load_data():
     return df
 
 # Load data
-with st.spinner('Loading data...'):
+with st.spinner('Loading cyclist data from Google Drive... This may take 30-60 seconds on first load.'):
     df = load_data()
 
 # Filter out invalid rides (negative or extremely long durations)
