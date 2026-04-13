@@ -190,7 +190,7 @@ def load_data():
     # Upload Cyclist-data.csv.gz to Google Drive, share it publicly, and paste the File ID below
     
     # REPLACE THIS with your File ID after uploading Cyclist-data.csv.gz to Google Drive
-    file_id = 'YOUR_COMPRESSED_FILE_ID_HERE'
+    file_id = '17AfaNA8nkn4RDkz9U43V47MFJADUGsqs'
     url = f'https://drive.google.com/uc?id={file_id}'
     
     # For local testing, uncomment this:
